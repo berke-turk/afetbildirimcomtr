@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <title>Afet Bildirim | Yardım Talepleri</title>
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <a href="/"><h1>AfetBildirim.com.tr</h1></a>
+    </div>
+    <div class="menu">
+      <a href="/yararli-bilgiler">Yararlı Bağlantılar</a>
+      <a href="mailto:iletisim@afetbildirim.com.tr">Hata Bildirim</a>
+    </div>
+  </div>
+
+
+
+  <div class="icerik">
+    <center>
+
+      <div class="bilgi">
+        Enkaz altında kalan ya da yardıma ihtiyacı olduğunu bildiğiniz kişileri konumunuzdan bağımsız ekleyebilirsiniz.
+      </div>
+
+      <div class="check">
+        <p>Enkaz Altında</p>
+        <label class="switch">
+          <input type="checkbox" id="check" onclick="check()" class="check">
+          <span class="slider round"></span>
+        </label>
+        <p>Erzak Yardımı</p>
+      </div>
+
+      <div class="box" id="enkaz">
+        <h2>ENKAZ ALTINDA</h2>
+        <p>Eğer enkaz altındaysanız ya da enkaz altında birini biliyorsanız bu formu doldurunuz</p>
+
+        <form  method="post" action="/enkaz" enctype="application/x-www-form-urlencoded" class="boxsha">
+          <div class="telad"><input type="text" id="telad" name="ad" placeholder="Ad Soyad">            <input type="tel" id="telad" name="tel" pattern="[0-9\s]+" placeholder="Telefon Numarası">
+          </div>
+              <select name="il">
+                <% for (let i = 1; i <= 81; i++) { %>
+                  <option value="<%= iller[i] %>" name="<%= iller[i] %>"><%= iller[i] %></option>
+                <% } %>
+              </select>
+          <input type="text" placeholder="Adres" name="adres">
+          <input type="text" placeholder="Kaynak" name="kaynak">
+          <textarea placeholder="Detay (Zorunlu Değil)" name="detay"></textarea>
+          <input type="submit" id="submit">
+        </form>
+
+      </div>
+
+      <div class="box erzak" id="erzak">
+        <h2>YARDIMA İHTİYACIMIZ VAR</h2>
+        <p>Eğer erzağa ihtiyacınız varsa bu formu doldurunuz,</p>
+        <form action="/erzak" method="post" class="boxsha" id="erz">
+          <div class="telad">
+            <input type="text" id="telad" name="ad" placeholder="Ad Soyad">
+            <input type="tel" id="telad" name="tel" pattern="[0-9\s]+" placeholder="Telefon Numarası">
+          </div>
+
+          <select name="il">
+            <% for (let i = 1; i <= 81; i++) { %>
+              <option value="<%= iller[i] %>" name="<%= iller[i] %>"><%= iller[i] %></option>
+            <% } %>
+          </select>
+
+          <input type="text" name="adres" placeholder="Adres">
+
+          <div class="checkbox-container">
+            <label class="checkbox-label">
+              <input type="checkbox" name="gida">
+              <span class="checkbox-custom"></span>
+              Gıda
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="barinma">
+              <span class="checkbox-custom"></span>
+              Barınma
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="battaniye">
+              <span class="checkbox-custom"></span>
+              Battaniye
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="isitici">
+              <span class="checkbox-custom"></span>
+              Isıtıcı
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="su">
+              <span class="checkbox-custom"></span>
+              Su
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="chc" name="ulasim">
+              <span class="checkbox-custom"></span>
+              Ulaşım
+            </label>
+          </div>
+
+
+
+          <textarea id="" placeholder="Detay(Zorunlu Değil)" name="detay"></textarea>
+          <input type="submit" id="submit">
+        </form>
+      </div>
+
+
+
+
+      <div class="table" style="overflow-x:auto;" id="enbilgi">
+        <h3>Enkaz Bilgi Tablosu</h3>
+
+        <table class="gridlist" cellspacing="0" rules="all" border="1" id="ContentPlaceHolder1_GridView1"
+          style="border-collapse:collapse;">
+          <tbody>
+            <tr>
+              <th scope="col">Kayıt Tarihi</th>
+              <th scope="col">Ad Soyad</th>
+              <th scope="col">Telefon Numarası</th>
+              <th scope="col">İl</th>
+              <th class="ss" scope="col">Adres</th>
+              <th class="ss" scope="col">Detaylı Bilgi</th>
+            </tr><%  for (var i = 0; i < enkazlar.length; i++) {  %>
+            <tr>
+              <td><%= enkazlar[i].created_at %></td>
+              <td><%= enkazlar[i].full_name %></td>
+              <td><%= enkazlar[i].phone_number %></td>
+              <td class="ss"><%= enkazlar[i].city %></td>
+              <td class="ss"><%= enkazlar[i].address %></td>
+              <td class="ss"><%= enkazlar[i].detail %></td>
+            </tr><% }; %>
+
+          </tbody>
+        </table>
+      </div>
+
+
+      <div class="table" style="overflow-x:auto;" id="erbilgi">
+        <h3 id="h3">İhtiyaç Tablosu</h3>
+
+        <table class="gridlist" cellspacing="0" rules="all" border="1" id="ContentPlaceHolder1_GridView1"
+          style="border-collapse:collapse;">
+          <tbody>
+            <tr>
+              <th scope="col">Kayıt Tarihi</th>
+              <th scope="col">Ad Soyad</th>
+              <th scope="col">Telefon Numarası</th>
+              <th scope="col">İl</th>
+              <th class="ss" scope="col">Adres</th>
+              <th class="ss" scope="col">İhtiyaç Bilgi</th>
+            </tr><%  for (var i = 0; i < erzaklar.length; i++) {  %>
+            <tr>
+              <td><%= erzaklar[i].created_at %></td>
+              <td><%= erzaklar[i].full_name%></td>
+              <td><%= erzaklar[i].phone_number %></td>
+              <td class="ss"><%= erzaklar[i].city%></td>
+              <td class="ss"><%= erzaklar[i].address%></td>
+              <td class="ss"><%= erzaklar[i].ihtiyac%></td>
+
+            </tr><% }; %>
+          </tbody>
+        </table>
+      </div>
+
+
+
+      <script>
+        function check() {
+          const checkbox = document.getElementById("check");
+          const enkaz = document.getElementById("enkaz");
+          const erzak = document.getElementById("erzak");
+          const enbilgi = document.getElementById("enbilgi");
+          const erbilgi = document.getElementById("erbilgi");
+
+
+
+          if (checkbox.checked == true) {
+            enkaz.style.display = "none";
+            enbilgi.style.display = "none";
+
+            erzak.style.display = "block";
+            erbilgi.style.display = "block";
+          } else {
+            enkaz.style.display = "block";
+            enbilgi.style.display = "block";
+
+
+            erzak.style.display = "none";
+            erbilgi.style.display = "none";
+
+          }
+        }
+      </script>
+      <div class="footer"><br>
+        Developed by Metaversetic, a division by Ming
+      </div>
+  </div>
+
+
+</body>
+
+</html>

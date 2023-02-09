@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap"
+      rel="stylesheet">
+    <title>Enkaz | Afet Bildirim</title>
+</head>
+<body>
+    <div class="menu">
+        <h1>Afet Bildirim</h1>
+        <a href="/admin/enkaz">Enkaz</a>
+        <a href="/admin/erzak">Erzak</a>
+        <form action="/logout" method="post">
+            <input type="submit" class="cikis" value="Çıkış Yap">
+          </form>
+      </div>
+
+      <div class="icerik">
+
+        <div class="table" style="overflow-x:auto;" id="enbilgi">
+          <h3 id="h3">Enkaz Bilgi Tablosu</h3>
+  
+          <table class="gridlist" cellspacing="0" rules="all" border="1" id="ContentPlaceHolder1_GridView1"
+            style="border-collapse:collapse;">
+            <tbody>
+              <tr>
+                <th scope="col">İşlemler</th>
+                <th scope="col">Kayıt Tarihi</th>
+                <th scope="col">Ad Soyad</th>
+                <th scope="col">Telefon Numarası</th>
+                <th scope="col">İl</th>
+                <th class="ss" scope="col">Adres</th>
+                <th class="ss" scope="col">Detaylı Bilgi</th>
+              </tr><%  for (var i = 0; i < enkazlar.length; i++) {  %>
+              <tr>
+                <td>
+                  <form method="post" action="/enkaz/sil">
+                    <input type="hidden" name="id" value="<%= enkazlar[i].id %>">
+                    <input type="submit" value="Sil" id="sil">
+                  </form>
+                </td>
+                <td><%= enkazlar[i].created_at %></td>
+                <td><%= enkazlar[i].full_name %></td>
+                <td><%= enkazlar[i].phone_number %></td>
+                <td class="ss"><%= enkazlar[i].city %></td>
+                <td class="ss"><%= enkazlar[i].address %></td>
+                <td class="ss"><%= enkazlar[i].detail %></td>
+              </tr><% }; %>
+  
+            </tbody>
+          </table>
+        </div>
+    
+
+
+</body>
+</html>
