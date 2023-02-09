@@ -6,7 +6,7 @@ const mysql = require('mysql2');
 const rateLimit = require('express-rate-limit');
 const app = express();
 
-const pool = mysql.createPool({host:'213.238.183.151', user: 'httpdgsg_user', password:'N,G(R8YNF)^w', database: 'httpdgsg_user'});
+const pool = mysql.createPool({host: process.env.DB_HOST, user: process.env.DB_USER, password:process.env.DB_PASSWORD, database: process.env.DB_NAME});
 
 const promisePool = pool.promise();
 
